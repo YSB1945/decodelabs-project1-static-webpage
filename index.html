@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="DecodeLabs Frontend Intern — Project 1: Static Webpage Design. A semantic HTML5 and CSS engineering showcase." />
+    <title>DecodeLabs | Project 1 — Static Webpage Design</title>
+
+    <!-- FIX #3 — Google Fonts CDN removed. Fonts are now self-hosted via @font-face in style.css -->
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- ========================================================
+         HEADER — height: 80px, full width: 100vw
+    ======================================================== -->
+    <header class="site-header">
+        <div class="site-header__inner">
+            <!-- Logo -->
+            <a href="#home" class="site-header__logo" aria-label="DecodeLabs homepage">
+                <span class="site-header__logo-mark" aria-hidden="true">&lt;/&gt;</span>
+                <span class="site-header__logo-text">DecodeLabs</span>
+            </a>
+
+            <!-- Primary Navigation — max 4 items (< 5 rule) -->
+            <nav class="site-nav" aria-label="Primary navigation">
+                <ul class="site-nav__list">
+                    <li class="site-nav__item">
+                        <a class="site-nav__link site-nav__link--active" href="#home">Home</a>
+                    </li>
+                    <li class="site-nav__item">
+                        <a class="site-nav__link" href="#about">About</a>
+                    </li>
+                    <li class="site-nav__item">
+                        <a class="site-nav__link" href="#services">Services</a>
+                    </li>
+                    <li class="site-nav__item">
+                        <a class="site-nav__link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- CTA Button -->
+            <a href="#contact" class="btn btn--primary site-header__cta">Get in Touch</a>
+        </div>
+    </header>
+
+    <!-- ========================================================
+         MAIN CONTENT
+    ======================================================== -->
+    <main id="main-content">
+
+        <!-- ---- HERO SECTION — min-height: 100vh, max-width: 1200px, padding: 120px 0 ---- -->
+        <section class="hero" id="home" aria-labelledby="hero-headline">
+            <div class="hero__inner">
+                <p class="hero__eyebrow">DecodeLabs · Batch 2026 · Project 01</p>
+
+                <!-- ONE h1 per page -->
+                <h1 class="hero__headline" id="hero-headline">
+                    Build the Foundation.<br />
+                    <span class="hero__headline-accent">Ship the Structure.</span>
+                </h1>
+
+                <p class="hero__subheadline">
+                    A pixel-perfect static webpage demonstrating semantic HTML5 architecture,
+                    CSS engineering, and accessibility-first development.
+                </p>
+
+                <div class="hero__actions">
+                    <a href="#services" class="btn btn--primary">View the Work</a>
+                    <a href="#about" class="btn btn--ghost">Learn the Process</a>
+                </div>
+
+                <!-- Blueprint annotation — decorative, aria-hidden -->
+                <div class="hero__annotation hero__annotation--width" aria-hidden="true">
+                    max-width: 1200px
+                </div>
+                <div class="hero__annotation hero__annotation--height" aria-hidden="true">
+                    min-height: 100vh
+                </div>
+            </div>
+        </section>
+
+        <!-- ---- ABOUT SECTION ---- -->
+        <section class="about" id="about" aria-labelledby="about-heading">
+            <div class="container">
+                <header class="section-header">
+                    <p class="section-header__label">Phase I · IA Blueprint</p>
+                    <h2 class="section-header__title" id="about-heading">Structure Before Code</h2>
+                    <p class="section-header__description">
+                        Information Architecture is the art of organizing for findability.
+                        Every line of HTML is a design decision.
+                    </p>
+                </header>
+
+                <div class="about__grid">
+                    <!-- Card 1 -->
+                    <article class="principle-card">
+                        <div class="principle-card__icon" aria-hidden="true">
+                            <span>IA</span>
+                        </div>
+                        <h3 class="principle-card__title">Information Architecture</h3>
+                        <p class="principle-card__body">
+                            Define the sitemap before touching an editor. Logical hierarchy
+                            means content is findable and usable — not just present.
+                        </p>
+                    </article>
+
+                    <!-- Card 2 -->
+                    <article class="principle-card">
+                        <div class="principle-card__icon" aria-hidden="true">
+                            <span>SEM</span>
+                        </div>
+                        <h3 class="principle-card__title">Semantic DOM</h3>
+                        <p class="principle-card__body">
+                            Replace div soup with meaningful landmarks: <code>&lt;header&gt;</code>,
+                            <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>,
+                            <code>&lt;footer&gt;</code>. Machines and humans both benefit.
+                        </p>
+                    </article>
+
+                    <!-- Card 3 -->
+                    <article class="principle-card">
+                        <div class="principle-card__icon" aria-hidden="true">
+                            <span>DRY</span>
+                        </div>
+                        <h3 class="principle-card__title">DRY CSS via BEM</h3>
+                        <p class="principle-card__body">
+                            Define a component once, reuse everywhere. Block__Element--Modifier
+                            naming removes ambiguity and eliminates style duplication.
+                        </p>
+                    </article>
+
+                    <!-- Card 4 -->
+                    <article class="principle-card">
+                        <div class="principle-card__icon" aria-hidden="true">
+                            <span>A11Y</span>
+                        </div>
+                        <h3 class="principle-card__title">Accessibility First</h3>
+                        <p class="principle-card__body">
+                            Every image carries an <code>alt</code> description. Contrast ratios
+                            exceed 4.5:1. The web must be perceivable by all users and
+                            assistive technologies.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---- SERVICES / CONTENT GRID SECTION — 12-col grid, gap 24px, row-gap 60px ---- -->
+        <section class="services" id="services" aria-labelledby="services-heading">
+            <div class="container">
+                <header class="section-header">
+                    <p class="section-header__label">Core Skills · Project 1</p>
+                    <h2 class="section-header__title" id="services-heading">The Engineering Stack</h2>
+                    <p class="section-header__description">
+                        Each discipline is a layer in the final render. Master each layer
+                        before moving to the next.
+                    </p>
+                </header>
+
+                <!-- 12-col content grid, gap: 24px, row-gap: 60px -->
+                <div class="content-grid">
+
+                    <!-- Card A — spans 4 cols -->
+                    <!-- FIX #4 — Added WebP source + JPEG fallback to all <picture> elements -->
+                    <article class="content-card content-grid__item">
+                        <figure class="content-card__media">
+                            <picture>
+                                <source srcset="assets/img1.avif" type="image/avif" />
+                                <source srcset="assets/img1.webp" type="image/webp" />
+                                <img src="assets/img1.jpg"
+                                    alt="Code editor showing HTML and CSS source code on a dark theme display"
+                                    width="560" height="360" loading="lazy" class="content-card__img" />
+                            </picture>
+                            <figcaption class="content-card__caption">HTML · CSS · Foundations</figcaption>
+                        </figure>
+                        <div class="content-card__body">
+                            <h3 class="content-card__title">HTML Fundamentals</h3>
+                            <p class="content-card__text">
+                                Semantic markup transforms raw content into a navigable, machine-readable
+                                structure. One <code>&lt;h1&gt;</code>. Proper landmarks. Zero div soup.
+                            </p>
+                            <span class="content-card__tag">Core Skill</span>
+                        </div>
+                    </article>
+
+                    <!-- Card B — spans 4 cols -->
+                    <article class="content-card content-grid__item">
+                        <figure class="content-card__media">
+                            <picture>
+                                <source srcset="assets/img2.avif" type="image/avif" />
+                                <source srcset="assets/img2.webp" type="image/webp" />
+                                <img src="assets/img2.jpg"
+                                    alt="Abstract CSS grid layout visualisation with coloured columns and rows on screen"
+                                    width="560" height="360" loading="lazy" class="content-card__img" />
+                            </picture>
+                            <figcaption class="content-card__caption">Grid · Flexbox · Layout</figcaption>
+                        </figure>
+                        <div class="content-card__body">
+                            <h3 class="content-card__title">CSS Layout Systems</h3>
+                            <p class="content-card__text">
+                                CSS Grid owns the macro page structure. Flexbox handles micro
+                                component alignment. Each tool has its domain — never swap them.
+                            </p>
+                            <span class="content-card__tag">Core Skill</span>
+                        </div>
+                    </article>
+
+                    <!-- Card C — spans 4 cols -->
+                    <article class="content-card content-grid__item">
+                        <figure class="content-card__media">
+                            <picture>
+                                <source srcset="assets/img3.avif" type="image/avif" />
+                                <source srcset="assets/img3.webp" type="image/webp" />
+                                <img src="assets/img3.jpg"
+                                    alt="Laptop open on a desk displaying a web development workflow with multiple browser tabs"
+                                    width="560" height="360" loading="lazy" class="content-card__img" />
+                            </picture>
+                            <figcaption class="content-card__caption">A11Y · W3C · Audit</figcaption>
+                        </figure>
+                        <div class="content-card__body">
+                            <h3 class="content-card__title">Quality Gate</h3>
+                            <p class="content-card__text">
+                                Code does not ship until it passes W3C validation, a semantic
+                                audit, and a pixel-perfect visual regression check. Zero errors allowed.
+                            </p>
+                            <span class="content-card__tag">Validation</span>
+                        </div>
+                    </article>
+
+                    <!-- Card D — spans 6 cols (wider feature card) -->
+                    <article class="content-card content-card--wide content-grid__item content-grid__item--wide">
+                        <figure class="content-card__media">
+                            <picture>
+                                <source srcset="assets/img4.avif" type="image/avif" />
+                                <source srcset="assets/img4.webp" type="image/webp" />
+                                <img src="assets/img4.jpg"
+                                    alt="Close-up of a monitor showing JavaScript and CSS code being written in a modern IDE"
+                                    width="840" height="360" loading="lazy" class="content-card__img" />
+                            </picture>
+                            <figcaption class="content-card__caption">Separation of Concerns · DRY · BEM</figcaption>
+                        </figure>
+                        <div class="content-card__body">
+                            <h3 class="content-card__title">CSS Engineering Principles</h3>
+                            <p class="content-card__text">
+                                Separation of concerns: HTML owns structure, CSS owns appearance. No inline
+                                styles — ever. One external stylesheet, shared across all pages. A component
+                                defined once is a component maintainable everywhere.
+                            </p>
+                            <span class="content-card__tag">Architecture</span>
+                        </div>
+                    </article>
+
+                    <!-- Card E — spans 6 cols -->
+                    <article class="content-card content-card--wide content-grid__item content-grid__item--wide">
+                        <figure class="content-card__media">
+                            <picture>
+                                <source srcset="assets/img5.avif" type="image/avif" />
+                                <source srcset="assets/img5.webp" type="image/webp" />
+                                <img src="assets/img5.jpg"
+                                    alt="Designer sketching a wireframe and sitemap on paper with a stylus on a tablet nearby"
+                                    width="840" height="360" loading="lazy" class="content-card__img" />
+                            </picture>
+                            <figcaption class="content-card__caption">IPO Model · Assets · Rendering</figcaption>
+                        </figure>
+                        <div class="content-card__body">
+                            <h3 class="content-card__title">The IPO Engineering Mindset</h3>
+                            <p class="content-card__text">
+                                Input (assets: images, icons, text) → Process (CSS box model, logic) →
+                                Output (pixel-perfect render). Debug by isolating the stage that failed.
+                                Every layout issue has an address.
+                            </p>
+                            <span class="content-card__tag">Mindset</span>
+                        </div>
+                    </article>
+
+                </div><!-- /.content-grid -->
+            </div>
+        </section>
+
+        <!-- ---- CHECKLIST ASIDE SECTION ---- -->
+        <section class="checklist-section" aria-labelledby="checklist-heading">
+            <div class="container">
+                <div class="checklist-section__layout">
+
+                    <!-- FIX #1 — .checklist-section__lead now has its CSS rule in style.css section 9 -->
+                    <div class="checklist-section__lead">
+                        <p class="section-header__label">Flight Checklist · Rev 3.0</p>
+                        <h2 class="section-header__title" id="checklist-heading">
+                            Requirements Met
+                        </h2>
+                        <p class="section-header__description">
+                            Every item below is a hard gate. Access to dynamic projects is locked
+                            until the Visual Architecture passes audit.
+                        </p>
+                    </div>
+
+                    <aside class="checklist" aria-label="Project 1 requirements checklist">
+                        <ul class="checklist__list">
+                            <li class="checklist__item checklist__item--done">
+                                <span class="checklist__marker" aria-hidden="true">✓</span>
+                                <div class="checklist__content">
+                                    <strong class="checklist__key">IA</strong>
+                                    <span class="checklist__value">Logical sitemap defined first.</span>
+                                </div>
+                            </li>
+                            <li class="checklist__item checklist__item--done">
+                                <span class="checklist__marker" aria-hidden="true">✓</span>
+                                <div class="checklist__content">
+                                    <strong class="checklist__key">HTML</strong>
+                                    <span class="checklist__value">Semantic tags. One &lt;h1&gt;.</span>
+                                </div>
+                            </li>
+                            <li class="checklist__item checklist__item--done">
+                                <span class="checklist__marker" aria-hidden="true">✓</span>
+                                <div class="checklist__content">
+                                    <strong class="checklist__key">CSS</strong>
+                                    <span class="checklist__value">External file only. DRY. No IDs for styling.</span>
+                                </div>
+                            </li>
+                            <li class="checklist__item checklist__item--done">
+                                <span class="checklist__marker" aria-hidden="true">✓</span>
+                                <div class="checklist__content">
+                                    <strong class="checklist__key">LAYOUT</strong>
+                                    <span class="checklist__value">Grid macro. Flexbox micro.</span>
+                                </div>
+                            </li>
+                            <li class="checklist__item checklist__item--done">
+                                <span class="checklist__marker" aria-hidden="true">✓</span>
+                                <div class="checklist__content">
+                                    <strong class="checklist__key">ASSETS</strong>
+                                    <span class="checklist__value">AVIF/WebP + JPEG fallback. Explicit
+                                        dimensions.</span>
+                                </div>
+                            </li>
+                            <li class="checklist__item checklist__item--done">
+                                <span class="checklist__marker" aria-hidden="true">✓</span>
+                                <div class="checklist__content">
+                                    <strong class="checklist__key">A11Y</strong>
+                                    <span class="checklist__value">Alt text. Contrast &gt; 4.5:1. ARIA labels.</span>
+                                </div>
+                            </li>
+                            <li class="checklist__item checklist__item--done">
+                                <span class="checklist__marker" aria-hidden="true">✓</span>
+                                <div class="checklist__content">
+                                    <strong class="checklist__key">VALIDATION</strong>
+                                    <span class="checklist__value">W3C Validator — zero errors.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </aside>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================================
+         FOOTER — height: 400px, "Drafting Blue" background
+    ======================================================== -->
+    <footer class="site-footer" id="contact" aria-label="Site footer with contact information">
+        <div class="site-footer__inner container">
+
+            <div class="site-footer__brand">
+                <p class="site-footer__logo-text" aria-hidden="true">&lt;/&gt; DecodeLabs</p>
+                <p class="site-footer__tagline">
+                    Engineering Foundations · Batch 2026
+                </p>
+                <p class="site-footer__mandate">
+                    "Build it well, for the frontend is<br />
+                    the only part of the system<br />
+                    the world will ever see."
+                </p>
+            </div>
+
+            <nav class="site-footer__nav" aria-label="Footer navigation">
+                <h2 class="site-footer__nav-title">Navigation</h2>
+                <ul class="site-footer__nav-list">
+                    <li><a class="site-footer__nav-link" href="#home">Home</a></li>
+                    <li><a class="site-footer__nav-link" href="#about">About</a></li>
+                    <li><a class="site-footer__nav-link" href="#services">Services</a></li>
+                    <li><a class="site-footer__nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- FIX #2 — <p> replaced with <h2> for semantic consistency with the Navigation column -->
+            <address class="site-footer__contact">
+                <h2 class="site-footer__nav-title">Contact</h2>
+                <ul class="site-footer__contact-list">
+                    <li class="site-footer__contact-item">
+                        <span class="site-footer__contact-label" aria-hidden="true">✉</span>
+                        <a class="site-footer__contact-link" href="mailto:decodelabs.tech@gmail.com">
+                            decodelabs.tech@gmail.com
+                        </a>
+                    </li>
+                    <li class="site-footer__contact-item">
+                        <span class="site-footer__contact-label" aria-hidden="true">☎</span>
+                        <a class="site-footer__contact-link" href="tel:+918933006408">
+                            +91 89330 06408
+                        </a>
+                    </li>
+                    <li class="site-footer__contact-item">
+                        <span class="site-footer__contact-label" aria-hidden="true">⌖</span>
+                        <span>Greater Lucknow, India</span>
+                    </li>
+                    <li class="site-footer__contact-item">
+                        <span class="site-footer__contact-label" aria-hidden="true">↗</span>
+                        <a class="site-footer__contact-link" href="https://www.decodelabs.tech" target="_blank"
+                            rel="noopener noreferrer">
+                            www.decodelabs.tech
+                        </a>
+                    </li>
+                </ul>
+            </address>
+
+        </div>
+
+        <div class="site-footer__bottom">
+            <div class="container">
+                <p class="site-footer__copyright">
+                    © 2026 DecodeLabs · Project 1: Static Webpage Design ·
+                    <span class="site-footer__badge">APPROVED</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

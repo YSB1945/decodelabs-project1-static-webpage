@@ -1,0 +1,979 @@
+/* ================================================================
+   DecodeLabs — Project 1: Static Webpage Design
+   style.css · External stylesheet · No inline styles
+   Architecture: BEM naming · DRY principles · CSS Custom Properties
+   Layout: CSS Grid (macro) + Flexbox (micro)
+================================================================ */
+
+/* ----------------------------------------------------------------
+   FIX #3 — Self-hosted fonts replacing Google Fonts CDN.
+   Place the WOFF2 files in assets/fonts/ (download from
+   https://gwfh.mranftl.com/fonts for IBM Plex Mono and Inter).
+---------------------------------------------------------------- */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('assets/fonts/ibm-plex-mono-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('assets/fonts/ibm-plex-mono-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('assets/fonts/ibm-plex-mono-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('assets/fonts/inter-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('assets/fonts/inter-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('assets/fonts/inter-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* ----------------------------------------------------------------
+   0. CUSTOM PROPERTIES (Design Tokens)
+---------------------------------------------------------------- */
+:root {
+  /* Palette — Blueprint engineering theme */
+  --color-night:       #0A0F1E;   /* Primary background */
+  --color-navy:        #0D1B3E;   /* Footer / dark sections */
+  --color-blue-eng:    #2563EB;   /* Primary accent — Drafting Blue */
+  --color-blue-light:  #3B82F6;   /* Hover states */
+  --color-amber:       #E8D5A3;   /* Parchemin / warm highlight */
+  --color-amber-dim:   #C9B47A;   /* Amber muted */
+  --color-green:       #16A34A;   /* Validation / check marks */
+  --color-surface:     #111827;   /* Card backgrounds */
+  --color-surface-2:   #1F2937;   /* Elevated card */
+  --color-border:      #1E3A6E;   /* Blueprint grid lines */
+  --color-text-primary:  #F0F4FF; /* White-blue — contrast 14:1 on night */
+  --color-text-secondary:#A0AEC0; /* Muted text — contrast 5.2:1 on night */
+  --color-text-code:   #93C5FD;   /* Inline code */
+  --color-orange-ann:  #F97316;   /* Blueprint annotation orange */
+
+  /* Typography */
+  --font-display: 'IBM Plex Mono', 'Courier New', monospace;
+  --font-body:    'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  /* Type Scale */
+  --text-xs:   0.75rem;   /* 12px */
+  --text-sm:   0.875rem;  /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg:   1.125rem;  /* 18px */
+  --text-xl:   1.25rem;   /* 20px */
+  --text-2xl:  1.5rem;    /* 24px */
+  --text-3xl:  1.875rem;  /* 30px */
+  --text-4xl:  2.25rem;   /* 36px */
+  --text-5xl:  3rem;      /* 48px */
+  --text-6xl:  3.75rem;   /* 60px */
+
+  /* Spacing */
+  --space-1:   0.25rem;   /* 4px  */
+  --space-2:   0.5rem;    /* 8px  */
+  --space-2-5: 0.625rem;  /* 10px — FIX #5: new token (was magic 0.625rem) */
+  --space-3:   0.75rem;   /* 12px */
+  --space-4:   1rem;      /* 16px */
+  --space-5:   1.25rem;   /* 20px — FIX #5: new token (was magic 1.25rem) */
+  --space-6:   1.5rem;    /* 24px */
+  --space-8:   2rem;      /* 32px */
+  --space-10:  2.5rem;    /* 40px */
+  --space-12:  3rem;      /* 48px */
+  --space-16:  4rem;      /* 64px */
+  --space-20:  5rem;      /* 80px */
+  --space-24:  6rem;      /* 96px */
+
+  /* Layout */
+  --container-max:    1200px;
+  --header-height:    80px;
+  --hero-padding:     120px;
+  --grid-cols:        12;
+  --grid-gap:         24px;
+  --grid-row-gap:     60px;
+  --footer-height:    400px;
+
+  /* Borders & Radius */
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+
+  /* Transitions */
+  --transition-fast:   150ms ease;
+  --transition-base:   250ms ease;
+}
+
+
+/* ----------------------------------------------------------------
+   1. RESET & BASE
+---------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background-color: var(--color-night);
+  /* Blueprint grid overlay — decorative background */
+  background-image:
+    linear-gradient(var(--color-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+code {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: var(--color-text-code);
+  background-color: rgba(37, 99, 235, 0.15);
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-sm);
+}
+
+address {
+  font-style: normal;
+}
+
+/* Focus visible — keyboard accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-blue-eng);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ----------------------------------------------------------------
+   2. UTILITY — CONTAINER
+---------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+
+/* ----------------------------------------------------------------
+   3. BUTTONS (BEM Block: .btn)
+---------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  /* FIX #5 — was: padding: 0.75rem 1.5rem (magic values) */
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background-color var(--transition-fast),
+              border-color var(--transition-fast),
+              color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background-color: var(--color-blue-eng);
+  color: var(--color-text-primary);
+  border-color: var(--color-blue-eng);
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  background-color: var(--color-blue-light);
+  border-color: var(--color-blue-light);
+}
+
+.btn--ghost {
+  background-color: transparent;
+  color: var(--color-amber);
+  border-color: var(--color-amber);
+}
+
+.btn--ghost:hover,
+.btn--ghost:focus-visible {
+  background-color: rgba(232, 213, 163, 0.1);
+}
+
+
+/* ----------------------------------------------------------------
+   4. SECTION HEADER (BEM Block: .section-header)
+---------------------------------------------------------------- */
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-16);
+}
+
+.section-header__label {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-orange-ann);
+  margin-bottom: var(--space-3);
+}
+
+.section-header__title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.15;
+  margin-bottom: var(--space-4);
+}
+
+.section-header__description {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin-inline: auto;
+  line-height: 1.7;
+}
+
+
+/* ----------------------------------------------------------------
+   5. SITE HEADER (BEM Block: .site-header)
+   Spec: height 80px · full width 100vw
+---------------------------------------------------------------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: var(--header-height);
+  background-color: rgba(10, 15, 30, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 100;
+}
+
+.site-header__inner {
+  display: flex;               /* Flexbox: micro-alignment of header children */
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+/* Logo */
+.site-header__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.site-header__logo-mark {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-blue-eng);
+}
+
+.site-header__logo-text {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: 0.03em;
+}
+
+/* Primary Nav — BEM Block: .site-nav */
+.site-nav__list {
+  display: flex;              /* Flexbox: nav items in a row */
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.site-nav__link {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  padding-bottom: var(--space-1);
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition-fast),
+              border-color var(--transition-fast);
+}
+
+.site-nav__link:hover,
+.site-nav__link:focus-visible {
+  color: var(--color-text-primary);
+  border-color: var(--color-blue-eng);
+}
+
+.site-nav__link--active {
+  color: var(--color-text-primary);
+  border-color: var(--color-blue-eng);
+}
+
+/* Header CTA button — inherits .btn .btn--primary */
+/* FIX #5 — was: padding: 0.5rem 1.25rem (magic values) */
+.site-header__cta {
+  padding: var(--space-2) var(--space-5);
+}
+
+
+/* ----------------------------------------------------------------
+   6. HERO SECTION (BEM Block: .hero)
+   Spec: min-height 100vh · content max-width 1200px · padding 120px 0
+---------------------------------------------------------------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;             /* Flexbox: vertical centering of hero content */
+  align-items: center;
+  padding-top: calc(var(--hero-padding) + var(--header-height));
+  padding-bottom: var(--hero-padding);
+  overflow: hidden;
+}
+
+.hero__inner {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+  position: relative;
+  z-index: 1;
+}
+
+.hero__eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-orange-ann);
+  margin-bottom: var(--space-6);
+}
+
+.hero__headline {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-4xl), 6vw, var(--text-6xl));
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-6);
+  max-width: 800px;
+}
+
+.hero__headline-accent {
+  color: var(--color-amber);
+}
+
+.hero__subheadline {
+  font-size: var(--text-xl);
+  color: var(--color-text-secondary);
+  max-width: 580px;
+  line-height: 1.7;
+  margin-bottom: var(--space-10);
+}
+
+.hero__actions {
+  display: flex;             /* Flexbox: CTA buttons row */
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* Blueprint dimension annotations */
+.hero__annotation {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  color: var(--color-orange-ann);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero__annotation--width {
+  bottom: var(--space-8);
+  left: 50%;
+  transform: translateX(-50%);
+  border-top: 1px solid var(--color-orange-ann);
+  padding-top: var(--space-2);
+}
+
+.hero__annotation--height {
+  top: 50%;
+  right: var(--space-6);
+  transform: translateY(-50%) rotate(90deg);
+  border-top: 1px solid var(--color-orange-ann);
+  padding-top: var(--space-2);
+}
+
+
+/* ----------------------------------------------------------------
+   7. ABOUT SECTION (BEM Block: .about)
+---------------------------------------------------------------- */
+.about {
+  padding-block: var(--space-24);
+  background-color: rgba(13, 27, 62, 0.5);
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--grid-gap);
+}
+
+/* Principle Card — BEM Block: .principle-card */
+.principle-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  transition: border-color var(--transition-base),
+              transform var(--transition-base);
+}
+
+.principle-card:hover {
+  border-color: var(--color-blue-eng);
+  transform: translateY(-4px);
+}
+
+.principle-card__icon {
+  display: flex;             /* Flexbox: center the icon label */
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background-color: rgba(37, 99, 235, 0.15);
+  border: 1px solid var(--color-blue-eng);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-6);
+}
+
+.principle-card__icon span {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-text-code);
+  letter-spacing: 0.08em;
+}
+
+.principle-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.principle-card__body {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+
+/* ----------------------------------------------------------------
+   8. SERVICES / CONTENT GRID SECTION
+   Spec: 12-col grid · gap 24px · row-gap 60px
+---------------------------------------------------------------- */
+.services {
+  padding-block: var(--space-24);
+}
+
+/* CSS GRID — Macro layout: 12 columns */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  /* FIX #6 — was: gap + row-gap (redundant shorthand). Now explicit column-gap + row-gap */
+  column-gap: var(--grid-gap);
+  row-gap: var(--grid-row-gap);
+}
+
+/* Default card: spans 4 of 12 columns */
+.content-grid__item {
+  grid-column: span 4;
+}
+
+/* Wide card: spans 6 of 12 columns */
+.content-grid__item--wide {
+  grid-column: span 6;
+}
+
+/* Content Card — BEM Block: .content-card */
+.content-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;             /* Flexbox: vertical stacking of media + body */
+  flex-direction: column;
+  transition: border-color var(--transition-base),
+              box-shadow var(--transition-base);
+}
+
+.content-card:hover {
+  border-color: var(--color-blue-eng);
+  box-shadow: 0 8px 32px rgba(37, 99, 235, 0.18);
+}
+
+.content-card__media {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+}
+
+.content-card__img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-base);
+}
+
+.content-card:hover .content-card__img {
+  transform: scale(1.03);
+}
+
+.content-card--wide .content-card__img {
+  height: 240px;
+}
+
+.content-card__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(10, 15, 30, 0.85));
+  padding: var(--space-4) var(--space-4) var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-amber-dim);
+}
+
+.content-card__body {
+  padding: var(--space-6);
+  display: flex;             /* Flexbox: column layout for card text */
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.content-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+
+.content-card__text {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  flex: 1;
+}
+
+.content-card__tag {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  /* FIX #5 — was: padding: 0.25rem 0.625rem (magic values) */
+  padding: var(--space-1) var(--space-2-5);
+  background-color: rgba(37, 99, 235, 0.15);
+  border: 1px solid var(--color-blue-eng);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-code);
+  margin-top: auto;
+}
+
+
+/* ----------------------------------------------------------------
+   9. CHECKLIST SECTION (BEM Block: .checklist-section)
+---------------------------------------------------------------- */
+.checklist-section {
+  padding-block: var(--space-24);
+  background-color: rgba(13, 27, 62, 0.5);
+}
+
+.checklist-section__layout {
+  display: grid;             /* CSS Grid: two-column layout */
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+/* FIX #1 — .checklist-section__lead was a ghost class (in HTML but absent from CSS) */
+.checklist-section__lead {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-6);
+}
+
+/* Checklist — BEM Block: .checklist */
+.checklist {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+}
+
+.checklist__list {
+  display: flex;             /* Flexbox: vertical stack of checklist items */
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.checklist__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: background-color var(--transition-fast),
+              border-color var(--transition-fast);
+}
+
+.checklist__item--done {
+  background-color: rgba(22, 163, 74, 0.07);
+  border-color: rgba(22, 163, 74, 0.25);
+}
+
+.checklist__marker {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--color-green);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.checklist__content {
+  display: flex;             /* Flexbox: key + value on one line */
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: baseline;
+}
+
+.checklist__key {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-amber);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  min-width: 80px;
+}
+
+.checklist__value {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+
+/* ----------------------------------------------------------------
+   10. SITE FOOTER (BEM Block: .site-footer)
+   Spec: height 400px · "Drafting Blue" background · contact info
+---------------------------------------------------------------- */
+.site-footer {
+  background-color: var(--color-navy);
+  border-top: 1px solid var(--color-border);
+  min-height: var(--footer-height);
+  display: flex;             /* Flexbox: vertical layout of footer sections */
+  flex-direction: column;
+}
+
+.site-footer__inner {
+  display: grid;             /* CSS Grid: three-column footer layout */
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-12);
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-12);
+  flex: 1;
+}
+
+/* Brand column */
+.site-footer__brand {
+  display: flex;             /* Flexbox: vertical stack */
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.site-footer__logo-text {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.site-footer__tagline {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-orange-ann);
+}
+
+.site-footer__mandate {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  font-style: italic;
+  border-left: 2px solid var(--color-blue-eng);
+  padding-left: var(--space-4);
+  margin-top: var(--space-2);
+}
+
+/* Footer nav title (h2) — shared by both Navigation and Contact columns */
+.site-footer__nav-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-amber);
+  margin-bottom: var(--space-6);
+}
+
+/* Footer navigation */
+.site-footer__nav-list {
+  display: flex;             /* Flexbox: vertical nav links */
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.site-footer__nav-link {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.site-footer__nav-link:hover,
+.site-footer__nav-link:focus-visible {
+  color: var(--color-text-primary);
+}
+
+/* Contact list */
+.site-footer__contact-list {
+  display: flex;             /* Flexbox: vertical stack */
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.site-footer__contact-item {
+  display: flex;             /* Flexbox: icon + text row */
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.site-footer__contact-label {
+  flex-shrink: 0;
+  color: var(--color-blue-eng);
+  width: 16px;
+  text-align: center;
+  margin-top: 1px;
+}
+
+.site-footer__contact-link {
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.site-footer__contact-link:hover,
+.site-footer__contact-link:focus-visible {
+  color: var(--color-text-primary);
+}
+
+/* Footer bottom bar */
+.site-footer__bottom {
+  border-top: 1px solid var(--color-border);
+  padding-block: var(--space-4);
+}
+
+.site-footer__copyright {
+  display: flex;             /* Flexbox: copyright text + badge */
+  align-items: center;
+  gap: var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.05em;
+}
+
+/* FIX #5 — was: padding: 0.2rem 0.6rem (magic values, no token equivalent) */
+.site-footer__badge {
+  display: inline-flex;
+  padding: var(--space-1) var(--space-2-5);
+  background-color: var(--color-green);
+  color: var(--color-night);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+
+/* ----------------------------------------------------------------
+   11. RESPONSIVE — TABLET (≤ 1024px)
+---------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .content-grid__item {
+    grid-column: span 6;
+  }
+
+  .content-grid__item--wide {
+    grid-column: span 12;
+  }
+
+  .checklist-section__layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  .site-footer__inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .site-footer__brand {
+    grid-column: span 2;
+  }
+}
+
+
+/* ----------------------------------------------------------------
+   12. RESPONSIVE — MOBILE (≤ 768px)
+---------------------------------------------------------------- */
+@media (max-width: 768px) {
+  :root {
+    --hero-padding: 80px;
+  }
+
+  /* Header nav: hide on mobile (burger would be added with JS) */
+  .site-nav {
+    display: none;
+  }
+
+  .site-header__cta {
+    display: none;
+  }
+
+  .hero__headline {
+    font-size: var(--text-3xl);
+  }
+
+  .hero__annotation {
+    display: none;
+  }
+
+  .content-grid__item,
+  .content-grid__item--wide {
+    grid-column: span 12;
+  }
+
+  .section-header__title {
+    font-size: var(--text-3xl);
+  }
+
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .site-footer__brand {
+    grid-column: span 1;
+  }
+
+  .site-footer__copyright {
+    flex-wrap: wrap;
+  }
+}
