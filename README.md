@@ -157,16 +157,19 @@ Three breakpoint tiers, mobile-first cascade:
 ## File Structure
 
 ```
-project-1/
-├── index.html          # Main document — semantic HTML5
-├── style.css           # External stylesheet — BEM, DRY, CSS Custom Properties
-├── assets/
-│   ├── img1.avif       # HTML/CSS Foundations card image
-│   ├── img2.avif       # CSS Layout Systems card image
-│   ├── img3.avif       # Quality Gate card image
-│   ├── img4.avif       # CSS Engineering Principles card image
-│   └── img5.avif       # IPO Mindset card image
-└── README.md           # This document
+decodelabs-project1-static-webpage/
+├── index.html                  # Main document — semantic HTML5
+├── style.css                   # External stylesheet — BEM, DRY, CSS Custom Properties
+├── .gitignore                  # Git tracking exclusions (local IDE & OS noise cache)
+├── README.md                   # Technical documentation & architecture blueprint
+├── audit/
+│   └── lighthouse-report.html  # Audited Chrome DevTools Lighthouse report (4 × 100)
+└── assets/
+├── img1.avif               # HTML/CSS Foundations card image
+├── img2.avif               # CSS Layout Systems card image
+├── img3.avif               # Quality Gate card image
+├── img4.avif               # CSS Engineering Principles card image
+└── img5.avif               # IPO Mindset card image
 ```
 
 > **Autonomy:** the project runs fully offline. No runtime CDN dependency.
@@ -208,12 +211,11 @@ No build step. No dependencies. No server required.
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/decodelabs-project1.git
+git clone [https://github.com/YSB1945/decodelabs-project1-static-webpage.git](https://github.com/YSB1945/decodelabs-project1-static-webpage.git)
 
 # Open in browser
 open index.html
 # or: double-click index.html in your file explorer
-```
 
 ---
 
